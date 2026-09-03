@@ -1,0 +1,18 @@
+# python
+__pycache__/
+*.egg-info/
+*.fit
+*.hevy2fit-state.json
+.pytest_cache/
+build/
+dist/
+
+# your real Hevy export — never committed; data/sample-workouts.csv ships instead
+data/workouts.csv
+
+# editor / OS
+.idea/
+.DS_Store
+
+# virtual environment
+.venv/

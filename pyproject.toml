@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hevy2fit"
+version = "0.1.0"
+description = "Convert Hevy CSV workout exports to Garmin FIT files"
+requires-python = ">=3.9"
+dependencies = [
+    "fit-tool>=0.9.13",
+]
+
+[project.scripts]
+hevy2fit = "cli:main"
+
+[tool.setuptools]
+py-modules = [
+    "cli",
+    "config",
+    "csv_parser",
+    "exercise_matcher",
+    "fit_writer",
+    "models",
+    "naming",
+    "state",
+    "timestamps",
+    "workout_processor",
+]
