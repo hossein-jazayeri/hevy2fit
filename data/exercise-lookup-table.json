@@ -20469,5 +20469,16 @@
     "hevy": {
       "exerciseTitle": "Leg Extension (Machine)"
     }
+  },
+  {
+    "garmin": {
+      "categoryId": 5,
+      "categoryName": "core",
+      "exerciseId": 5,
+      "exerciseName": "bodyBarObliqueTwist"
+    },
+    "hevy": {
+      "exerciseTitle": "Landmine 180"
+    }
   }
 ]
