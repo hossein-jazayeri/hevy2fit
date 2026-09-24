@@ -20359,5 +20359,115 @@
     "hevy": {
       "exerciseTitle": "Triceps Pushdown"
     }
+  },
+  {
+    "garmin": {
+      "categoryId": 8,
+      "categoryName": "deadlift",
+      "exerciseId": 23,
+      "exerciseName": "romanianDeadlift"
+    },
+    "hevy": {
+      "exerciseTitle": "Romanian Deadlift (Barbell)"
+    }
+  },
+  {
+    "garmin": {
+      "categoryId": 17,
+      "categoryName": "lunge",
+      "exerciseId": 18,
+      "exerciseName": "dumbbellBulgarianSplitSquat"
+    },
+    "hevy": {
+      "exerciseTitle": "Bulgarian Split Squat (Dumbbell)"
+    }
+  },
+  {
+    "garmin": {
+      "categoryId": 13,
+      "categoryName": "hyperextension",
+      "exerciseId": 28,
+      "exerciseName": "weightedStaticBackExtension"
+    },
+    "hevy": {
+      "exerciseTitle": "Back Extension (Weighted Hyperextension)"
+    }
+  },
+  {
+    "garmin": {
+      "categoryId": 6,
+      "categoryName": "crunch",
+      "exerciseId": 1,
+      "exerciseName": "cableCrunch"
+    },
+    "hevy": {
+      "exerciseTitle": "Cable Crunch"
+    }
+  },
+  {
+    "garmin": {
+      "categoryId": 8,
+      "categoryName": "deadlift",
+      "exerciseId": 17,
+      "exerciseName": "trapBarDeadlift"
+    },
+    "hevy": {
+      "exerciseTitle": "Deadlift (Trap bar)"
+    }
+  },
+  {
+    "garmin": {
+      "categoryId": 23,
+      "categoryName": "row",
+      "exerciseId": 5,
+      "exerciseName": "facePull"
+    },
+    "hevy": {
+      "exerciseTitle": "Face Pull"
+    }
+  },
+  {
+    "garmin": {
+      "categoryId": 16,
+      "categoryName": "legRaise",
+      "exerciseId": 8,
+      "exerciseName": "lyingStraightLegRaise"
+    },
+    "hevy": {
+      "exerciseTitle": "Lying Leg Raise"
+    }
+  },
+  {
+    "garmin": {
+      "categoryId": 21,
+      "categoryName": "pullUp",
+      "exerciseId": 24,
+      "exerciseName": "weightedPullUp"
+    },
+    "hevy": {
+      "exerciseTitle": "Pull Up (Weighted)"
+    }
+  },
+  {
+    "garmin": {
+      "categoryId": 28,
+      "categoryName": "squat",
+      "exerciseId": 6,
+      "exerciseName": "barbellBackSquat"
+    },
+    "hevy": {
+      "exerciseTitle": "Squat (Barbell)"
+    }
+  },
+  {
+    "garmin": {
+      "categoryId": 6,
+      "categoryName": "crunch",
+      "exerciseId": 33,
+      "exerciseName": "legExtensions"
+    },
+    "hevy": {
+      "exerciseTitle": "Leg Extension (Machine)"
+    }
   }
 ]
