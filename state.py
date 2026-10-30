@@ -15,14 +15,33 @@ def state_path_for(csv_path: Path) -> Path:
     return csv_path.with_name(csv_path.name + ".hevy2fit-state.json")
 
 
+def _canonical_key(title: str, start_time: str, end_time: str) -> str:
+    """Build a state key from the parsed times, so the same workout gets the same key
+    whichever of Hevy's timestamp formats it came in (24-hour, 12-hour, or the API).
+    A timestamp that cannot be parsed is kept as written."""
+    def canonical(timestamp: str) -> str:
+        try:
+            return parse_hevy_timestamp(timestamp).isoformat(timespec="minutes")
+        except ValueError:
+            return timestamp
+
+    return f"{title}|{canonical(start_time)}|{canonical(end_time)}"
+
+
 def activity_key(activity: HevyActivity) -> str:
-    return f"{activity.title}|{activity.start_time}|{activity.end_time}"
+    return _canonical_key(activity.title, activity.start_time, activity.end_time)
+
+
+def _normalize_key(entry_key: str) -> str:
+    """Convert a key from an older state file, which holds the timestamps as written in the CSV."""
+    title, start_time, end_time = entry_key.rsplit("|", 2)
+    return _canonical_key(title, start_time, end_time)
 
 
 def _start_time_of(entry_key: str) -> datetime:
-    _title, start_time, _end_time = entry_key.split("|", 2)
+    start_time = entry_key.rsplit("|", 2)[1]
     try:
-        return parse_hevy_timestamp(start_time)
+        return datetime.fromisoformat(start_time)
     except ValueError:
         return datetime.min
 
@@ -32,7 +51,8 @@ def _read_locked(f) -> Dict[str, dict]:
     raw = f.read()
     if not raw.strip():
         return {}
-    return json.loads(raw).get("converted", {})
+    converted = json.loads(raw).get("converted", {})
+    return {_normalize_key(key): record for key, record in converted.items()}
 
 
 def _write_locked(f, converted: Dict[str, dict]) -> None:
