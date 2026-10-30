@@ -21,6 +21,7 @@ py-modules = [
     "csv_parser",
     "exercise_matcher",
     "fit_writer",
+    "hevy_api",
     "models",
     "naming",
     "state",

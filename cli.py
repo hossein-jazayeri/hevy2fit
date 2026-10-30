@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 from pathlib import Path
 from typing import List, Optional
@@ -9,10 +10,14 @@ from config import load_config, convert_weight_to_kg
 from csv_parser import parse_hevy_csv
 from exercise_matcher import DEFAULT_LOOKUP_TABLE_PATH, load_lookup_table
 from fit_writer import convert_activity_to_fit
+from hevy_api import HevyApiError, fetch_workouts, workouts_to_csv
 from models import HevyActivity
 from naming import filename_for_activity
 from state import find_record, record_conversion, state_path_for
 from workout_processor import group_rows_by_activity, order_activities, select_activity
+
+
+DEFAULT_DOWNLOAD_PATH = Path(__file__).parent / "data" / "workouts.csv"
 
 
 def _load_activities(csv_path: Path) -> List[HevyActivity]:
@@ -48,6 +53,41 @@ def cmd_list(args: argparse.Namespace) -> None:
             f"{activity.start_time} -> {activity.end_time}  "
             f"({len(activity.exercises)} exercises){status}"
         )
+
+
+def _load_dotenv(path: Path) -> None:
+    """Load KEY=VALUE lines from a .env file into the environment, without overriding
+    variables that are already set."""
+    if not path.is_file():
+        return
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        os.environ.setdefault(key.strip(), value.strip().strip("'\""))
+
+
+def cmd_download(args: argparse.Namespace) -> None:
+    _load_dotenv(Path(".env"))
+    api_key = args.api_key or os.environ.get("HEVY_API_KEY")
+    if not api_key:
+        raise SystemExit("error: no API key; pass --api-key or set the HEVY_API_KEY environment variable")
+
+    try:
+        workouts = list(fetch_workouts(api_key))
+    except HevyApiError as e:
+        raise SystemExit(f"error: {e}")
+    if not workouts:
+        raise SystemExit("error: the Hevy API returned no workouts")
+
+    # Write to a temporary file and rename, so a failed run cannot damage an existing CSV.
+    output_path = Path(args.output) if args.output else DEFAULT_DOWNLOAD_PATH
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    temp_path = output_path.with_name(output_path.name + ".tmp")
+    temp_path.write_text(workouts_to_csv(workouts), encoding="utf-8")
+    temp_path.replace(output_path)
+    print(f"Wrote {output_path} ({len(workouts)} workouts)")
 
 
 def cmd_convert(args: argparse.Namespace) -> None:
@@ -137,6 +177,19 @@ def build_parser() -> argparse.ArgumentParser:
         description="Convert Hevy CSV workout exports to Garmin FIT files.",
     )
     sub = parser.add_subparsers(dest="command", required=True)
+
+    download_parser = sub.add_parser(
+        "download", help="Download your workouts from the Hevy API into a CSV file (needs Hevy PRO)"
+    )
+    download_parser.add_argument(
+        "-o", "--output", help="Path of the CSV file to write (default: data/workouts.csv in the repository)"
+    )
+    download_parser.add_argument(
+        "--api-key",
+        help="Hevy API key (default: HEVY_API_KEY from the environment or a .env file). "
+        "Prefer the variable: a flag stays in your shell history.",
+    )
+    download_parser.set_defaults(func=cmd_download)
 
     list_parser = sub.add_parser("list", help="List the activities found in a Hevy CSV export")
     list_parser.add_argument("csv", help="Path to the Hevy CSV export")
