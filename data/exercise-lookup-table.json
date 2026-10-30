@@ -20480,5 +20480,27 @@
     "hevy": {
       "exerciseTitle": "Landmine 180"
     }
+  },
+  {
+    "garmin": {
+      "categoryId": 5,
+      "categoryName": "core",
+      "exerciseId": 18,
+      "exerciseName": "kneelingAbWheel"
+    },
+    "hevy": {
+      "exerciseTitle": "Ab Wheel"
+    }
+  },
+  {
+    "garmin": {
+      "categoryId": 3,
+      "categoryName": "carry",
+      "exerciseId": 7,
+      "exerciseName": "farmersCarry"
+    },
+    "hevy": {
+      "exerciseTitle": "Suitcase Carry (Dumbbell)"
+    }
   }
 ]
