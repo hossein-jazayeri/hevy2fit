@@ -1,6 +1,6 @@
 # hevy2fit
 
-A command-line tool that converts a Hevy CSV workout export to a Garmin FIT file.
+A command-line tool that converts Hevy workouts, from a CSV export or the Hevy API, to Garmin FIT files.
 
 ## Install
 
@@ -20,11 +20,37 @@ Try it right away with the bundled sample export, before using your own data:
 hevy2fit convert data/sample-workouts.csv
 ```
 
-## Export your Hevy workouts
+## Get your Hevy workouts
+
+You can export a CSV file by hand, or download your workouts with the Hevy API.
+
+### Export a CSV file by hand
 
 1. Open the Hevy web app and log in: https://hevy.com/
 2. Go to https://hevy.com/settings?export
 3. Export your workouts as a CSV file.
+
+### Download your workouts with the Hevy API
+
+The Hevy API needs a Hevy PRO account. Get an API key at https://hevy.com/settings?developer, then run:
+
+```bash
+echo 'HEVY_API_KEY=your-key' > .env
+hevy2fit download
+```
+```
+Wrote data/workouts.csv (112 workouts)
+```
+
+The command writes the file to `data/workouts.csv` in the repository (the repository ignores this file). Use `data/workouts.csv` as the CSV path in the commands below.
+
+The command reads the key from a `.env` file in the current directory. The repository ignores `.env`, so git does not commit your key. You can also set `HEVY_API_KEY` in your shell instead.
+
+The `download` command writes the same CSV format as the manual export, so every other command works on the file without changes. Pass `-o` to write the file somewhere else. Run the command again later to refresh the file with new workouts: it replaces the file, and the `convert` command skips activities it already converted.
+
+You can also pass the key with `--api-key`, but the flag stays in your shell history.
+
+The command writes times in your computer's local time zone, as the manual export does.
 
 ## List activities in a CSV file
 
@@ -122,6 +148,8 @@ hevy2fit convert workouts.csv --config config.json
 
 A Hevy export always contains your full workout history, not just new workouts. To stop you from converting (and re-uploading to Garmin Connect) the same activity twice, `convert` records each converted activity in a state file next to the CSV, named `<csv name>.hevy2fit-state.json`, and skips any activity already in it.
 
+The tool identifies an activity by its title and its start and end times, not by how the CSV writes them. A manual export and a file from `hevy2fit download` therefore agree on which activities you already converted.
+
 `list` marks already-converted activities the same way:
 
 ```
@@ -167,6 +195,7 @@ hevy2fit convert workouts.csv --lookup-table my-lookup-table.json
 
 ```bash
 hevy2fit --help
+hevy2fit download --help
 hevy2fit list --help
 hevy2fit convert --help
 ```

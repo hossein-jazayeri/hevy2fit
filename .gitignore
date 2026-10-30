@@ -10,6 +10,9 @@ dist/
 # your real Hevy export — never committed; data/sample-workouts.csv ships instead
 data/workouts.csv
 
+# secrets (Hevy API key)
+.env
+
 # editor / OS
 .idea/
 .DS_Store

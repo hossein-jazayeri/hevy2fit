@@ -11,6 +11,11 @@ _TIMESTAMP_FORMATS = (
 )
 
 
+def format_hevy_timestamp(moment: datetime) -> str:
+    """Format a naive local datetime like Hevy's 24-hour export, e.g. "5 Dec 2025, 11:37"."""
+    return f"{moment.day} {moment:%b %Y, %H:%M}"
+
+
 def parse_hevy_timestamp(timestamp_str: str) -> datetime:
     """Parse a Hevy export timestamp.
 
