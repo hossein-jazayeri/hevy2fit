@@ -20502,5 +20502,71 @@
     "hevy": {
       "exerciseTitle": "Suitcase Carry (Dumbbell)"
     }
+  },
+  {
+    "garmin": {
+      "categoryId": 23,
+      "categoryName": "row",
+      "exerciseId": 18,
+      "exerciseName": "seatedCableRow"
+    },
+    "hevy": {
+      "exerciseTitle": "Seated Cable Row - Bar Grip"
+    }
+  },
+  {
+    "garmin": {
+      "categoryId": 24,
+      "categoryName": "shoulderPress",
+      "exerciseId": 24,
+      "exerciseName": "dumbbellShoulderPress"
+    },
+    "hevy": {
+      "exerciseTitle": "Shoulder Press (Dumbbell)"
+    }
+  },
+  {
+    "garmin": {
+      "categoryId": 7,
+      "categoryName": "curl",
+      "exerciseId": 12,
+      "exerciseName": "crossBodyDumbbellHammerCurl"
+    },
+    "hevy": {
+      "exerciseTitle": "Cross Body Hammer Curl"
+    }
+  },
+  {
+    "garmin": {
+      "categoryId": 23,
+      "categoryName": "row",
+      "exerciseId": 45,
+      "exerciseName": "barbellRow"
+    },
+    "hevy": {
+      "exerciseTitle": "Bent Over Row (Barbell)"
+    }
+  },
+  {
+    "garmin": {
+      "categoryId": 30,
+      "categoryName": "tricepsExtension",
+      "exerciseId": 2,
+      "exerciseName": "bodyWeightDip"
+    },
+    "hevy": {
+      "exerciseTitle": "Triceps Dip"
+    }
+  },
+  {
+    "garmin": {
+      "categoryId": 16,
+      "categoryName": "legRaise",
+      "exerciseId": 8,
+      "exerciseName": "lyingStraightLegRaise"
+    },
+    "hevy": {
+      "exerciseTitle": "Dragonfly"
+    }
   }
 ]
